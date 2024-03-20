@@ -39,6 +39,20 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        let fileId = "";
+        function genAction()
+        {
+            let val = document.getElementById('fileName').value;
+            let request = 'option.php?ren&file=' + fileId + '&newFileName=' + val;
+            document.getElementById('modalForm').action = request;
+        }
+        function setData(fileid, fileName)
+        {
+            fileId = fileid;
+            document.getElementById('labelCaption').innerHTML = "Nume nou pentru " + fileName;
+        }
+    </script>
     <style>
         .container { margin-left: 5px; }
         .down-button {  border: none; }
@@ -49,7 +63,7 @@
 <body>
     <div class="container p-3">
         <div class="d-flex justify-content-between align-items-center">
-        <h2>Bine ai venit <?= $name ?></h2>
+        <h2 onclick="alert(document.getElementById('fileName').value)">Bine ai venit <?= $name ?></h2>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 <div class="d-flex align-items-center">
                     <div class="input-group mb-3">
@@ -86,6 +100,10 @@
             <p style="color: green;margin-top: 10px; font-size: 20px">Fișierul a fost șters</p>
         <?php } ?>
         <?php
+            if(isset($_GET['status']) && $_GET['status'] == 'renameSuccess') { ?>
+            <p style="color: green;margin-top: 10px; font-size: 20px">Fișierul a fost redenumit</p>
+        <?php } ?>
+        <?php
             if(isset($_GET['status']) && $_GET['status'] == 'neimplementat') { ?>
             <p style="color: red;margin-top: 10px; font-size: 20px">Funcția dată încă nu a fost implementată</p>
         <?php } ?>
@@ -112,13 +130,37 @@
                         <td><?= $file['crDate'] ?></td>
                         <td>
                             <a class="btn btn-primary text-white" href="option.php?download&file=<?= $file['gen'] ?>"><i class='bx bx-cloud-download'></i> Download</a>
-                            <a class="btn btn-info text-white justify-content-between" href="option.php?ren&file=<?= $file['gen'] ?>"><i class='bx bx-rename'></i> Redenumește</a>
+                            <button type="button" class="btn btn-info text-white" onclick="setData('<?= $file['gen'] ?>', '<?= $file['file'] ?>')" data-toggle="modal" data-target="#exampleModal"><i class='bx bx-rename'></i> Redenumește</button>
                             <a class="btn btn-danger text-white" href="option.php?del&file=<?= $file['gen'] ?>"><i class='bx bx-folder-minus'></i> Șterge</a>
                         </td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Redenumește</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" id="modalForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="fileName" class="col-form-label" id="labelCaption"></label>
+                            <input type="text" class="form-control" id="fileName">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
+                        <button onclick="genAction()" type="submit" class="btn btn-primary">Modifică</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

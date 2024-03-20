@@ -30,7 +30,15 @@
             echo file_get_contents("/var/www/uploads/".$_GET['file']);
             break;
         case 'ren':
-            header("Location: index.php?status=neimplementat");
+            if(!isset($_GET['newFileName']) || empty($_GET['newFileName'])) header("Location: index.php?status=invalidrequest");
+            $fileId = $_GET['file'];
+            $newName = $_GET['newFileName'];
+            $newNameArray = explode('.', $newName);
+            $ext = explode('.', $fileId)[1];
+            if($newNameArray[1] != $ext) $newName = $newNameArray[0].'.'.$ext;
+            $sql = "UPDATE files SET fileName='$newName' WHERE genName='$fileId'";
+            $conn->query($sql);
+            header("Location: index.php?status=renameSuccess");
             break;
         case 'del':
             unlink("/var/www/uploads/".$_GET['file']);

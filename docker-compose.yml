@@ -1,0 +1,30 @@
+version: "3"
+services:
+  apache:
+    build: ./phpimage
+    container_name: site
+    ports:
+      - 80:80
+    volumes:
+      - ./site:/var/www/html
+    networks:
+      - cloud
+    depends_on:
+      - baza
+  baza:
+    build: ./mariadbimage
+    container_name: mariadb
+    networks:
+      - cloud
+    ports:
+      - 3306:3306
+    volumes:
+      - ./databaseData:/var/lib/mysql
+
+networks:
+  cloud:
+    driver: bridge
+
+volumes:
+  site:
+  databaseData:

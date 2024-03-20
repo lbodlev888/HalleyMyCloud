@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-background {
+    background-size: cover;
+}
+
+.btn-primary {
+    margin-top: 10px;
+}
+
+#register-btn {
+    margin-left: 110px;
+}
+
+.form-group  input{
+    width: 270px;
+}
+
+.form-log {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.files {
+    margin-left: 20px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.row {
+    margin-top: 10px;
+}

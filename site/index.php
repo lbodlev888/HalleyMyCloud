@@ -49,6 +49,7 @@
         }
         function setData(fileid, fileName)
         {
+            document.getElementById('fileName').value = '';
             fileId = fileid;
             document.getElementById('labelCaption').innerHTML = "Nume nou pentru " + fileName;
         }
@@ -63,7 +64,7 @@
 <body>
     <div class="container p-3">
         <div class="d-flex justify-content-between align-items-center">
-        <h2 onclick="alert(document.getElementById('fileName').value)">Bine ai venit <?= $name ?></h2>
+        <h2 onclick="">Bine ai venit <?= $name ?></h2>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 <div class="d-flex align-items-center">
                     <div class="input-group mb-3">
@@ -102,10 +103,6 @@
         <?php
             if(isset($_GET['status']) && $_GET['status'] == 'renameSuccess') { ?>
             <p style="color: green;margin-top: 10px; font-size: 20px">Fișierul a fost redenumit</p>
-        <?php } ?>
-        <?php
-            if(isset($_GET['status']) && $_GET['status'] == 'neimplementat') { ?>
-            <p style="color: red;margin-top: 10px; font-size: 20px">Funcția dată încă nu a fost implementată</p>
         <?php } ?>
     </div>
     <br>

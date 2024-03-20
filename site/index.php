@@ -45,13 +45,17 @@
         {
             let val = document.getElementById('fileName').value;
             let request = 'option.php?ren&file=' + fileId + '&newFileName=' + val;
-            document.getElementById('modalForm').action = request;
+            document.getElementById('modalRenameForm').action = request;
         }
         function setData(fileid, fileName)
         {
             document.getElementById('fileName').value = '';
             fileId = fileid;
-            document.getElementById('labelCaption').innerHTML = "Nume nou pentru " + fileName;
+            document.getElementById('labelCaptionRename').innerHTML = "Nume nou pentru " + fileName;
+        }
+        function genHref(fileid)
+        {
+            document.getElementById('dela').href = "option.php?del&file=" + fileid;
         }
     </script>
     <style>
@@ -107,7 +111,7 @@
     </div>
     <br>
     <div class="files p-3">
-        <h2>Fisierele tale</h2>
+        <h2>Fișierele tale</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -127,27 +131,27 @@
                         <td><?= $file['crDate'] ?></td>
                         <td>
                             <a class="btn btn-primary text-white" href="option.php?download&file=<?= $file['gen'] ?>"><i class='bx bx-cloud-download'></i> Download</a>
-                            <button type="button" class="btn btn-info text-white" onclick="setData('<?= $file['gen'] ?>', '<?= $file['file'] ?>')" data-toggle="modal" data-target="#exampleModal"><i class='bx bx-rename'></i> Redenumește</button>
-                            <a class="btn btn-danger text-white" href="option.php?del&file=<?= $file['gen'] ?>"><i class='bx bx-folder-minus'></i> Șterge</a>
+                            <button type="button" class="btn btn-info text-white" onclick="setData('<?= $file['gen'] ?>', '<?= $file['file'] ?>')" data-toggle="modal" data-target="#renameModal"><i class='bx bx-rename'></i> Redenumește</button>
+                            <button type="button" class="btn btn-danger text-white" onclick="genHref('<?= $file['gen'] ?>')" data-toggle="modal" data-target="#deleteModal"><i class='bx bx-folder-minus'></i> Șterge</button>
                         </td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
     </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="renameLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Redenumește</h5>
+                    <h5 class="modal-title" id="renameLabel">Redenumește</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="post" id="modalForm">
+                <form method="post" id="modalRenameForm">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="fileName" class="col-form-label" id="labelCaption"></label>
+                            <label for="fileName" class="col-form-label" id="labelCaptionRename"></label>
                             <input type="text" class="form-control" id="fileName">
                         </div>
                     </div>
@@ -156,6 +160,29 @@
                         <button onclick="genAction()" type="submit" class="btn btn-primary">Modifică</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteLabel">Șterge</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="fileName" class="col-form-label" id="labelCaptionDelete"><h3>Sunteți sigur că doriți să ștergeți acest fișier?</h3></label>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a class="btn btn-danger" id="dela" href="#">Confirmă</a>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Anulează</button>
+                </div>
             </div>
         </div>
     </div>

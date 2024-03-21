@@ -101,6 +101,10 @@
             <p style="color: red;margin-top: 10px; font-size: 20px">Cerere invalidă</p>
         <?php } ?>
         <?php
+            if(isset($_GET['status']) && $_GET['status'] == 'error') { ?>
+            <p style="color: red;margin-top: 10px; font-size: 20px">Ceva nu a mers</p>
+        <?php } ?>
+        <?php
             if(isset($_GET['status']) && $_GET['status'] == 'deleteSuccess') { ?>
             <p style="color: green;margin-top: 10px; font-size: 20px">Fișierul a fost șters</p>
         <?php } ?>

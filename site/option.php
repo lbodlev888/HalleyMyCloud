@@ -21,13 +21,23 @@
     switch($params[$index])
     {
         case 'download':
-            $sql = "SELECT fileName FROM files WHERE genName='".$_GET['file']."'";
-            $result = $conn->query($sql);
-            $downloadFileName = $result->fetch_assoc()['fileName'];
-            header('Content-Description: File Transfer');
-            header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.basename($downloadFileName).'"');
-            echo file_get_contents("/var/www/uploads/".$_GET['file']);
+            $sql = "CALL UpdateDownTimes('".$_GET['file']."')";
+            $result = ($conn->query($sql))->fetch_assoc();
+            $size = filesize("/var/www/uploads/".$_GET['file']);
+            if($result['stat'] == 'Operațiunea a reușit') {
+                $downloadFileName = $result['fileName'];
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename='.basename($downloadFileName));
+                header('Content-Transfer-Encoding: binary');
+                header('Connection: Keep-Alive');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                header('Pragma: public');
+                header('Content-Length: ' . $size);
+                echo file_get_contents("/var/www/uploads/".$_GET['file']);
+            }
+            else header('Location: index.php?status=error');
             break;
         case 'ren':
             if(!isset($_GET['newFileName']) || empty($_GET['newFileName'])) header("Location: index.php?status=invalidrequest");

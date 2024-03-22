@@ -11,12 +11,12 @@
   <div class="form-log p-3">
   <form method="POST" action="complete_login.php">
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Introdu emailul">
+        <label for="exampleInputEmail1">Adresa de email</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Ex: example@mail.com">
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Parola">
+        <label for="exampleInputPassword1">Parola</label>
+        <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Parola utilizată la înregistrare">
       </div>
       <div class="form-group">
         <div class="d-flex justify-content-between align-items-end">

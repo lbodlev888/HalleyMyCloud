@@ -12,15 +12,15 @@
     <form action="complete_register.php" method="POST">
         <div class="form-group">
           <label for="exampleInputEmail1">Nume Prenume</label>
-          <input type="text" class="form-control" name="name" id="exampleInputEmail1" placeholder="Nume Prenume">
+          <input type="text" class="form-control" name="name" id="exampleInputEmail1" placeholder="Ex: Bodlev Laurențiu">
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introdu emailul">
+          <label for="exampleInputEmail1">Adresa de email</label>
+          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ex: example@mail.com">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Parola">
+          <label for="exampleInputPassword1">Parola</label>
+          <input type="password" class="form-control" name="pass" id="exampleInputPassword1" placeholder="Folosește o parolă complicată">
         </div>
         <div class="form-group">
           <div class="d-flex justify-content-between align-items-end">

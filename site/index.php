@@ -8,6 +8,7 @@
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $name = explode(' ', $row['nume'])[1];
+    if(empty($name)) $name = $row['nume'];
 
     //---- get files
     $sql = "SELECT ROW_NUMBER() OVER(ORDER BY fileName) as id, fileName as file, genName as gen, creationDate as crDate from files where emailUser='$user'";
@@ -44,6 +45,10 @@
         function genAction()
         {
             let val = document.getElementById('fileName').value;
+            // if(val == "") {
+            //     alert('Numele nu poate fi gol');
+            //     return;
+            // }
             let request = 'option.php?ren&file=' + fileId + '&newFileName=' + val;
             document.getElementById('modalRenameForm').action = request;
         }
@@ -63,12 +68,16 @@
         .down-button {  border: none; }
         .bx { font-size: 25px; }
         tr { text-align: center; }
+        p { margin-top: 10px; font-size: 35px; }
+        .error { color: red; }
+        .ok { color: green; }
+        .welcome { font-size: 50px; }
     </style>
 </head>
 <body>
     <div class="container p-3">
         <div class="d-flex justify-content-between align-items-center">
-        <h2 onclick="">Bine ai venit <?= $name ?></h2>
+        <h2 class="welcome">Bine ai venit <?= $name ?></h2>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 <div class="d-flex align-items-center">
                     <div class="input-group mb-3">
@@ -86,31 +95,31 @@
         </div>
         <?php
             if(isset($_GET['uploaded']) && $_GET['uploaded'] == 'failed') { ?>
-            <p style="color: red;margin-top: 10px;">Încărcarea fișierului nu a reușit</p>
+            <p class="error">Încărcarea fișierului nu a reușit</p>
         <?php } ?>
         <?php
             if(isset($_GET['uploaded']) && $_GET['uploaded'] == 'big') { ?>
-            <p style="color: red;margin-top: 10px;">Fișierul este prea mare</p>
+            <p class="error">Fișierul este prea mare</p>
         <?php } ?>
         <?php
             if(isset($_GET['uploaded']) && $_GET['uploaded'] == 'ok') { ?>
-            <p style="color: green;margin-top: 10px; font-size: 20px">Încărcat cu succes</p>
+            <p class="ok">Încărcat cu succes</p>
         <?php } ?>
         <?php
             if(isset($_GET['status']) && $_GET['status'] == 'invalidrequest') { ?>
-            <p style="color: red;margin-top: 10px; font-size: 20px">Cerere invalidă</p>
+            <p class="error">Cerere invalidă</p>
         <?php } ?>
         <?php
             if(isset($_GET['status']) && $_GET['status'] == 'error') { ?>
-            <p style="color: red;margin-top: 10px; font-size: 20px">Ceva nu a mers</p>
+            <p class="error">Ceva nu a mers</p>
         <?php } ?>
         <?php
             if(isset($_GET['status']) && $_GET['status'] == 'deleteSuccess') { ?>
-            <p style="color: green;margin-top: 10px; font-size: 20px">Fișierul a fost șters</p>
+            <p class="ok">Fișierul a fost șters</p>
         <?php } ?>
         <?php
             if(isset($_GET['status']) && $_GET['status'] == 'renameSuccess') { ?>
-            <p style="color: green;margin-top: 10px; font-size: 20px">Fișierul a fost redenumit</p>
+            <p class="ok">Fișierul a fost redenumit</p>
         <?php } ?>
     </div>
     <br>

@@ -40,15 +40,17 @@
             else header('Location: index.php?status=error');
             break;
         case 'ren':
-            if(!isset($_GET['newFileName']) || empty($_GET['newFileName'])) header("Location: index.php?status=invalidrequest");
-            $fileId = $_GET['file'];
-            $newName = $_GET['newFileName'];
-            $newNameArray = explode('.', $newName);
-            $ext = explode('.', $fileId)[1];
-            if($newNameArray[1] != $ext) $newName = $newNameArray[0].'.'.$ext;
-            $sql = "UPDATE files SET fileName='$newName' WHERE genName='$fileId'";
-            $conn->query($sql);
-            header("Location: index.php?status=renameSuccess");
+            if(isset($_GET['newFileName']) && !empty($_GET['newFileName'])) {
+                $fileId = $_GET['file'];
+                $newName = $_GET['newFileName'];
+                $newNameArray = explode('.', $newName);
+                $ext = explode('.', $fileId)[1];
+                if($newNameArray[1] != $ext) $newName = $newNameArray[0].'.'.$ext;
+                $sql = "UPDATE files SET fileName='$newName' WHERE genName='$fileId'";
+                $conn->query($sql);
+                header("Location: index.php?status=renameSuccess");
+            }
+            else header("Location: index.php?status=invalidrequest");
             break;
         case 'del':
             unlink("/var/www/uploads/".$_GET['file']);

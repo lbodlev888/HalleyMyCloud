@@ -4,8 +4,14 @@
         $name = $_POST['name'];
         $email = $_POST['email'];
         $pass = $_POST['pass'];
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) echo "<script>window.location.href='register.php?error=invalidemail'</script>";
-        if(strlen($pass) < 8) echo "<script>window.location.href='register.php?error=smallpassword'</script>";
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "<script>window.location.href='register.php?error=invalidemail'</script>";
+            die();
+        }
+        if(strlen($pass) < 8) {
+            echo "<script>window.location.href='register.php?error=smallpassword'</script>";
+            die();
+        }
         require "connect.php";
         $sql = "SELECT count(email) as cnt FROM users WHERE email='$email'";
         $result = $conn->query($sql);

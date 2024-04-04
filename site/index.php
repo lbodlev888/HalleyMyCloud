@@ -14,6 +14,9 @@
     $result = $conn->query($sql);
     $files = $result->fetch_all(MYSQLI_ASSOC);
 
+    for($i = 0; $i < count($files); $i++)
+        $files[$i]['crDate'] = date('H:i:s d.m.Y', strtotime($files[$i]['crDate']));
+
     //---- get file size function
     function getSize($file_path)
     {
@@ -49,7 +52,8 @@
         }
         function setData(fileid, fileName)
         {
-            document.getElementById('fileName').value = '';
+            //document.getElementById('fileName').value = '';
+            document.getElementById('fileName').defaultValue = fileName;
             fileId = fileid;
             document.getElementById('labelCaptionRename').innerHTML = "Nume nou pentru " + fileName;
         }

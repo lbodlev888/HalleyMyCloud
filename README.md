@@ -1,10 +1,16 @@
 # HalleyMyCloud
+## About the project
+### Docker images
+Used docker image **php:8.1-apache** for php and apache and **mariadb:latest** for DBMS
+### Volumes
+- php: for developing
+- mariadb: If you restart or stop database server you'll not lose data
 
 ## Install instructions:
 ### `docker-compose up -d`
 
 # Config MyCloud to accept bigger files
-### Enter php server container using command
+### Enter php container using command
 `docker exec -it site bash`
 ### Go to default php config dir using command
 `cd /usr/local/etc/php/`
@@ -18,7 +24,7 @@
 `cp php.ini-development php.ini`
 ### Or
 `cp php.ini-production php.ini`
-## Don't forget to restart the php server
+## Don't forget to restart the apache server
 `docker restart site`
 
 # Some screenshots of the project:

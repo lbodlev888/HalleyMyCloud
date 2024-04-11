@@ -21,7 +21,7 @@
       <div class="form-group">
         <div class="d-flex justify-content-between align-items-end">
           <button type="submit" class="btn btn-primary">Conectează</button>
-          <a href="register.php" class="btn btn-info">Nu ai cont?</a>
+          <a href="register.php" class="btn btn-link">Nu ai cont?</a>
         </div>
       </div>
       <?php

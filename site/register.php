@@ -25,7 +25,7 @@
         <div class="form-group">
           <div class="d-flex justify-content-between align-items-end">
             <button type="submit" class="btn btn-primary">Creeaza contul</button>
-            <a href="index.php" class="btn btn-info">Login</a>
+            <a href="index.php" class="btn btn-link">Login</a>
           </div>
         </div>
       <?php

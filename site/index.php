@@ -72,7 +72,7 @@
         .down-button {  border: none; }
         .bx { font-size: 25px; }
         tr { text-align: center; }
-        p { margin-top: 10px; font-size: 35px; }
+        p { margin-top: 10px; font-size: 25px; }
         .error { color: red; }
         .ok { color: green; }
         .welcome { font-size: 50px; }

@@ -11,6 +11,7 @@ services:
       - cloud
     depends_on:
       - baza
+    restart: always
   baza:
     build: ./mariadbimage
     container_name: mariadb
@@ -20,6 +21,7 @@ services:
       - 3306:3306
     volumes:
       - ./databaseData:/var/lib/mysql
+    restart: always
 
 networks:
   cloud:
